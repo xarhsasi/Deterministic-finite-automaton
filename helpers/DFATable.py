@@ -6,6 +6,10 @@ class DFATable:
     def __init__(self, rows=[]):
         self.rows = rows
 
+    def __del__(self):
+        del self.rows
+        return self
+
 
     """
         rows setter and getter
@@ -22,6 +26,10 @@ class DFATable:
     @rows.getter
     def rows(self):
         return self.__rows
+
+    @rows.deleter
+    def rows(self):
+        del self.__rows
 
     def add_row(self, row):
         """

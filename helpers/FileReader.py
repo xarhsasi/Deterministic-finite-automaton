@@ -22,17 +22,15 @@ class FileReader:
         self.table = DFATable()
         self.used_symbols = []
 
-
     def read_file(self, filename):
         """
         Opens and reads the given file path and creates the instances which are described in file
         :param filename:
         :return: [self.nodes, self.table]
         """
-
         try:
             i = 0
-            with open(filename) as f:
+            with open(filename, "r") as f:
                 for line in f:
                     if i == 0:
                         self.total_states = line

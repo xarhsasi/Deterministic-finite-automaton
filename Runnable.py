@@ -4,6 +4,7 @@ from helpers.DFA import DFA
 from helpers.DFAGraph import DFAGraph
 from helpers.CLIColor import CLIColor as color
 from helpers.DFAExcel import DFAExcel
+from helpers.DFATable import DFATable
 
 
 class Runnable:
@@ -36,29 +37,15 @@ class Runnable:
         abs_file_path = os.path.join(script_dir, self.rel_path)
         return abs_file_path
 
-    def execute(self):
-        """
-        Executes the runnable function and handles the auto -execution in case the given word is not valid
-        :return:
-        """
-        while True:
-            executed = self.run()
-            if executed:
-                break
-            else:
-                self.user_input()
-
     def run(self):
         """
         Execute the program logic
         :return: [nodes, table, symbols]
         """
-        file_reader = FileReader()
-        [nodes, table, symbols] = file_reader.read_file(self.calc_path_file())
+        table = DFATable()
+        nodes, table, symbols = FileReader().read_file(self.calc_path_file())
         initialized = self.dfa_init(nodes, table, symbols)
         if not initialized:
-            table = None
-            print(table)
             return False
         else:
             self.graph_init(nodes)
@@ -82,7 +69,6 @@ class Runnable:
         :param symbols:
         :return: void
         """
-        print(table)
         dfa = DFA(nodes, table, symbols)
         dfa.initialize_state()
         executed = dfa.execute_dfa(word=self.input_word)
@@ -111,4 +97,4 @@ class Runnable:
         print(color.UNDERLINE("Author: Charalampos Asimakopoulos"))
         print(color.UNDERLINE("AM: 141098"))
         print(color.UNDERLINE("Email: cs141098@uniwa.gr - xarhsasi@gmail.com"))
-        print(color.UNDERLINE("Github: https://graphviz.readthedocs.io/en/stable/examples.html"))
+        print(color.UNDERLINE("Github: https://github.com/HarrysAsi/DFA-UNIWA.git"))
