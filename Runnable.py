@@ -3,6 +3,7 @@ from helpers.FileReader import FileReader
 from helpers.DFA import DFA
 from helpers.DFAGraph import DFAGraph
 from helpers.CLIColor import CLIColor as color
+from helpers.DFAExcel import DFAExcel
 
 
 class Runnable:
@@ -10,13 +11,13 @@ class Runnable:
        DFA Runnable class which handles the whole program execution
     """
 
-    def __init__(self):
+    def __init__(self, prefix="q", input_word="010101010", rel_path="dfa.txt"):
         """
             Initialize the runnable class with its variables
         """
-        self.prefix = "q"
-        self.input_word = "010101010"
-        self.rel_path = "dfa.txt"
+        self.prefix = prefix
+        self.input_word = input_word
+        self.rel_path = rel_path
 
         self.print_welcome()
 
@@ -38,6 +39,12 @@ class Runnable:
 
         self.dfa_init(nodes, table, symbols)
         self.graph_init(nodes)
+
+        self.to_excel(table)
+
+    def to_excel(self, table):
+        excel_file = DFAExcel()
+        excel_file.write_to_excel(table, self.prefix)
 
     def dfa_init(self, nodes, table, symbols):
         """

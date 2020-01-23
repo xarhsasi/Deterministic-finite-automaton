@@ -1,8 +1,10 @@
 from Runnable import Runnable
 from helpers.CLIColor import CLIColor as color
+from helpers.DFAExcel import DFAExcel
 
-try:
-    program = Runnable()
-    program.run()
-except:
-    print(color.RED("Something went wrong"))
+# try:
+program = Runnable(prefix="q")
+program.run()
+
+# except:
+# print(color.RED("Something went wrong"))
