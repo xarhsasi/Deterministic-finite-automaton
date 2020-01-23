@@ -35,21 +35,22 @@ class DFA:
         print(color.UNDERLINE(f"Given word: {word}"))
         if not self.word_validity(word):
             print(color.RED("The given word contains unacceptable symbols for this DFA"))
-            exit(0)
-
-        for char in word:
-            node_found = False
-            for node in self.nodes:
-                if node is self.current_state and not node_found:
-                    node_found = True
-                    for w in node.associated_nodes:
-                        if str(w.state) == str(char):
-                            self.current_state = self.get_node_by_input_state(w.next_state)
-
-        if self.current_state in self.final_states:
-            print(color.GREEN("Accepted word, good job!"))
+            return False
         else:
-            print(color.RED("Non accepted word, please try again!"))
+            for char in word:
+                node_found = False
+                for node in self.nodes:
+                    if node is self.current_state and not node_found:
+                        node_found = True
+                        for w in node.associated_nodes:
+                            if str(w.state) == str(char):
+                                self.current_state = self.get_node_by_input_state(w.next_state)
+
+            if self.current_state in self.final_states:
+                print(color.GREEN("Accepted word, good job!"))
+            else:
+                print(color.RED("Non accepted word, please try again!"))
+            return True
 
     def word_validity(self, word):
         """

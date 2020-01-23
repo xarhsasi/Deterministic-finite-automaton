@@ -22,12 +22,14 @@ class FileReader:
         self.table = DFATable()
         self.used_symbols = []
 
+
     def read_file(self, filename):
         """
         Opens and reads the given file path and creates the instances which are described in file
         :param filename:
         :return: [self.nodes, self.table]
         """
+
         try:
             i = 0
             with open(filename) as f:
@@ -64,11 +66,12 @@ class FileReader:
                     for node in self.nodes:
                         if row.current_state == node.input_state:
                             node.add_node(row)
-                self.symbols_validity()
-                self.print_info()
-                return self.nodes, self.table, self.symbols
 
+                self.print_info()
+                f.close()
+                return self.nodes, self.table, self.symbols
         except FileNotFoundError:
+            f.close()
             print(color.RED("ERROR: File not found"))
 
     def symbols_validity(self):
@@ -80,7 +83,7 @@ class FileReader:
         for used_symbol in self.used_symbols:
             if used_symbol not in self.symbols:
                 print(color.RED("The described symbols are not in the described dictionary, please try again!"))
-                exit(0)
+                return False
         return True
 
     def print_info(self):

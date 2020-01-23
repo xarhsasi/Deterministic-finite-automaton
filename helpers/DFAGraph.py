@@ -46,3 +46,5 @@ class DFAGraph:
         :return: void
         """
         self.f.view()
+
+        # the del method

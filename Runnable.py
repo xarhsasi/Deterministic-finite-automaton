@@ -20,29 +20,57 @@ class Runnable:
         self.rel_path = rel_path
 
         self.print_welcome()
+        self.user_input()
+
+    def user_input(self):
+        input_word = input("Please enter a phrase: ")
+        print("You entered: " + input_word)
+        self.input_word = input_word
 
     def calc_path_file(self):
         """
         calculate the relative path of the given file
-        :return: Fle's path
+        :return: File's path
         """
         script_dir = os.path.dirname(__file__)
         abs_file_path = os.path.join(script_dir, self.rel_path)
         return abs_file_path
+
+    def execute(self):
+        """
+        Executes the runnable function and handles the auto -execution in case the given word is not valid
+        :return:
+        """
+        while True:
+            executed = self.run()
+            if executed:
+                break
+            else:
+                self.user_input()
 
     def run(self):
         """
         Execute the program logic
         :return: [nodes, table, symbols]
         """
-        [nodes, table, symbols] = FileReader().read_file(self.calc_path_file())
-
-        self.dfa_init(nodes, table, symbols)
-        self.graph_init(nodes)
-
-        self.to_excel(table)
+        file_reader = FileReader()
+        [nodes, table, symbols] = file_reader.read_file(self.calc_path_file())
+        initialized = self.dfa_init(nodes, table, symbols)
+        if not initialized:
+            table = None
+            print(table)
+            return False
+        else:
+            self.graph_init(nodes)
+            self.to_excel(table)
+            return True
 
     def to_excel(self, table):
+        """
+        Creates the excel file based on the table
+        :param table:
+        :return: void
+        """
         excel_file = DFAExcel()
         excel_file.write_to_excel(table, self.prefix)
 
@@ -54,9 +82,13 @@ class Runnable:
         :param symbols:
         :return: void
         """
+        print(table)
         dfa = DFA(nodes, table, symbols)
         dfa.initialize_state()
-        dfa.execute_dfa(word=self.input_word)
+        executed = dfa.execute_dfa(word=self.input_word)
+        if not executed:
+            return False
+        return True
 
     def graph_init(self, nodes):
         """

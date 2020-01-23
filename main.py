@@ -4,7 +4,7 @@ from helpers.DFAExcel import DFAExcel
 
 # try:
 program = Runnable(prefix="q")
-program.run()
+executed = program.execute()
 
 # except:
 # print(color.RED("Something went wrong"))

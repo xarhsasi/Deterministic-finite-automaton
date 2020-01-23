@@ -6,6 +6,7 @@ class DFATable:
     def __init__(self, rows=[]):
         self.rows = rows
 
+
     """
         rows setter and getter
     """
