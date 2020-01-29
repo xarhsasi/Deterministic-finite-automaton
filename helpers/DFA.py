@@ -94,35 +94,3 @@ class DFA:
             print(node)
             for n in node.associated_nodes:
                 print(n)
-
-    """
-       nodes setter and getter
-    """
-
-    @property
-    def nodes(self):
-        return self.__nodes
-
-    @nodes.setter
-    def nodes(self, nodes):
-        self.__nodes = nodes
-
-    @nodes.getter
-    def nodes(self):
-        return self.__nodes
-
-    """
-       table setter and getter
-    """
-
-    @property
-    def table(self):
-        return self.__table
-
-    @table.setter
-    def table(self, table):
-        self.__table = table
-
-    @table.getter
-    def table(self):
-        return self.__table

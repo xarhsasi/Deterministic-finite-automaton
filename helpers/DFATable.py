@@ -10,27 +10,6 @@ class DFATable:
         del self.rows
         return self
 
-
-    """
-        rows setter and getter
-    """
-
-    @property
-    def rows(self):
-        return self.__rows
-
-    @rows.setter
-    def rows(self, rows):
-        self.__rows = rows
-
-    @rows.getter
-    def rows(self):
-        return self.__rows
-
-    @rows.deleter
-    def rows(self):
-        del self.__rows
-
     def add_row(self, row):
         """
         Adds a row in the table
