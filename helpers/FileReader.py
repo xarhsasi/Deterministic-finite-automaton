@@ -32,17 +32,23 @@ class FileReader:
             i = 0
             with open(filename, "r") as f:
                 for line in f:
+                    line = line.rstrip()
+                    # number of states
                     if i == 0:
                         self.total_states = line
+                        # all available symbols
                     elif i == 1:
                         self.symbols = line
+                        # first state
                     elif i == 2:
                         self.first_state = line
+                        # final states
                     elif i == 3:
                         self.final_states = line
                     else:
-                        row = line.replace("\n", "").split(" ")
-                        is_first_state = True if int(self.first_state) == int(row[0]) else False
+                        line.rstrip()
+                        row = line.split(" ")
+                        is_first_state = True if self.first_state == row[0] else False
                         is_final_state = True if row[0] in self.final_states else False
                         if i == 4:
                             node_tmp = DFANode(row[0], is_first_state, is_final_state)

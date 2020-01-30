@@ -42,7 +42,6 @@ class Runnable:
         Execute the program logic
         :return: [nodes, table, symbols]
         """
-        table = DFATable()
         nodes, table, symbols = FileReader().read_file(self.calc_path_file())
         initialized = self.dfa_init(nodes, table, symbols)
         if not initialized:

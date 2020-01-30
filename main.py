@@ -1,5 +1,11 @@
 from Runnable import Runnable
 
-program = Runnable(prefix="q")
-executed = program.run()
-input('Press Enter to Exit...')
+
+def main():
+    program = Runnable(prefix="q")
+    executed = program.run()
+    input('Press Enter to Exit...')
+
+
+if __name__ == '__main__':
+    main()
